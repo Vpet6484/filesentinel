@@ -1,0 +1,40 @@
+{% extends "layouts/base_employee.html" %}
+
+{% block title %}Upload File{% endblock %}
+
+{% block content %}
+
+<h2 style="margin-bottom:10px;">Upload File</h2>
+
+<p style="color:var(--text-muted);max-width:600px;margin-bottom:24px;">
+    Files uploaded by employees require administrator approval
+    before they become available in the system.
+</p>
+
+<div style="display:flex;justify-content:center;">
+    <div class="card" style="max-width:420px;width:100%;">
+
+        <div style="margin-bottom:14px;">
+            <i class="fa-solid fa-shield-halved"
+               style="color:var(--warning);margin-right:6px;"></i>
+            <strong>Approval Required</strong>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <label style="font-size:13px;color:var(--text-muted);">
+                Select file to upload
+            </label>
+
+            <input type="file" name="file" required>
+
+            <button type="submit" style="margin-top:14px;width:100%;">
+                Request Upload
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

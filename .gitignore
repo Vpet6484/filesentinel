@@ -1,0 +1,32 @@
+venv/
+**pycache**/
+*.pyc
+instance/
+.env
+
+# Ignore runtime storage contents
+
+storage/backups/*
+storage/temp/*
+storage/pending/*
+
+# Keep folder structure
+
+!storage/backups/.gitkeep
+!storage/temp/.gitkeep
+!storage/pending/.gitkeep
+
+uploads/
+logs/
+sessions/
+
+*.db
+*.sqlite3
+
+*.zip
+*.rar
+*.7z
+
+.vscode/
+.idea/
+.DS_Store

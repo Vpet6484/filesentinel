@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FileSentinel | Secure Access</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <main style="display:flex;align-items:center;justify-content:center;min-height:100vh;">
+        <div class="card" style="width:420px;">
+
+            <h1 style="text-align:center;margin-bottom:8px;">FileSentinel</h1>
+            <p style="text-align:center;color:var(--text-muted);margin-bottom:24px;">
+                Secure File Monitoring System
+            </p>
+
+            {% block content %}{% endblock %}
+
+        </div>
+    </main>
+
+    <footer>
+        © 2026 FileSentinel · Insider Threat Detection
+    </footer>
+
+</body>
+</html>

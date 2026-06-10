@@ -1,0 +1,239 @@
+{% extends "layouts/base_admin.html" %}
+{% block content %}
+
+<h2 class="page-title">Admin Dashboard</h2>
+
+<div class="card">
+    <p>Welcome to the <strong>FileSentinel Admin Panel</strong>.</p>
+
+    <p style="color:var(--text-muted);margin-top:8px;">
+        Use the controls below to manage files, monitor activity,
+        and respond to security alerts.
+    </p>
+</div>
+
+<div style="
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+">
+
+    <!-- Upload Files -->
+    <div class="card" style="position:relative;min-height:160px;">
+
+        <h3 style="color:var(--accent);margin-bottom:6px;">
+            Upload Files
+        </h3>
+
+        <p style="color:var(--text-muted);font-size:13px;">
+            Upload sensitive files into the system.
+        </p>
+
+        <a href="/admin/upload"
+           style="
+               position:absolute;
+               right:18px;
+               bottom:18px;
+               width:42px;
+               height:42px;
+               border-radius:12px;
+               background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+               display:flex;
+               align-items:center;
+               justify-content:center;
+               color:white;
+               text-decoration:none;
+               font-size:18px;
+               box-shadow:0 0 5px rgba(56,189,248,0.14);
+               transition:0.2s;
+           ">
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </a>
+
+    </div>
+
+    <!-- All Files -->
+    <div class="card" style="position:relative;min-height:160px;">
+
+        <h3 style="color:var(--accent);margin-bottom:6px;">
+            All Files
+        </h3>
+
+        <p style="color:var(--text-muted);font-size:13px;">
+            View, read, download or delete files.
+        </p>
+
+        <a href="/admin/files"
+           style="
+               position:absolute;
+               right:18px;
+               bottom:18px;
+               width:42px;
+               height:42px;
+               border-radius:12px;
+               background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+               display:flex;
+               align-items:center;
+               justify-content:center;
+               color:white;
+               text-decoration:none;
+               font-size:18px;
+               box-shadow:0 0 5px rgba(56,189,248,0.14);
+               transition:0.2s;
+           ">
+
+            <i class="fa-solid fa-folder-open"></i>
+
+        </a>
+
+    </div>
+
+    <!-- Upload Requests -->
+    <div class="card" style="position:relative;min-height:160px;">
+
+        <h3 style="color:var(--accent);margin-bottom:6px;">
+            Upload Requests
+        </h3>
+
+        <p style="color:var(--text-muted);font-size:13px;">
+            Review employee upload requests.
+        </p>
+
+        <a href="/admin/requests"
+           style="
+               position:absolute;
+               right:18px;
+               bottom:18px;
+               width:42px;
+               height:42px;
+               border-radius:12px;
+               background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+               display:flex;
+               align-items:center;
+               justify-content:center;
+               color:white;
+               text-decoration:none;
+               font-size:18px;
+               box-shadow:0 0 5px rgba(56,189,248,0.14);
+               transition:0.2s;
+           ">
+
+            <i class="fa-solid fa-envelope-open-text"></i>
+
+        </a>
+
+    </div>
+
+    <!-- System Monitor -->
+    <div class="card" style="position:relative;min-height:160px;">
+
+        <h3 style="color:var(--accent);margin-bottom:6px;">
+            System Monitor
+        </h3>
+
+        <p style="color:var(--text-muted);font-size:13px;">
+            Monitor suspicious activities.
+        </p>
+
+        <a href="/admin/monitor"
+           style="
+               position:absolute;
+               right:18px;
+               bottom:18px;
+               width:42px;
+               height:42px;
+               border-radius:12px;
+               background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+               display:flex;
+               align-items:center;
+               justify-content:center;
+               color:white;
+               text-decoration:none;
+               font-size:18px;
+               box-shadow:0 0 5px rgba(56,189,248,0.14);
+               transition:0.2s;
+           ">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+        </a>
+
+    </div>
+
+    <!-- Logs -->
+    <div class="card" style="position:relative;min-height:160px;">
+
+        <h3 style="color:var(--accent);margin-bottom:6px;">
+            Logs
+        </h3>
+
+        <p style="color:var(--text-muted);font-size:13px;">
+            Review all system and user logs.
+        </p>
+
+        <a href="/admin/logs"
+           style="
+               position:absolute;
+               right:18px;
+               bottom:18px;
+               width:42px;
+               height:42px;
+               border-radius:12px;
+               background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+               display:flex;
+               align-items:center;
+               justify-content:center;
+               color:white;
+               text-decoration:none;
+               font-size:18px;
+               box-shadow:0 0 5px rgba(56,189,248,0.14);
+               transition:0.2s;
+           ">
+
+            <i class="fa-solid fa-file-lines"></i>
+
+        </a>
+
+    </div>
+
+    <!-- Alerts -->
+    <div class="card" style="position:relative;min-height:160px;">
+
+        <h3 style="color:var(--accent);margin-bottom:6px;">
+            Alerts
+        </h3>
+
+        <p style="color:var(--text-muted);font-size:13px;">
+            View security alerts and warnings.
+        </p>
+
+        <a href="/admin/alerts"
+           style="
+               position:absolute;
+               right:18px;
+               bottom:18px;
+               width:42px;
+               height:42px;
+               border-radius:12px;
+               background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+               display:flex;
+               align-items:center;
+               justify-content:center;
+               color:white;
+               text-decoration:none;
+               font-size:18px;
+               box-shadow:0 0 5px rgba(56,189,248,0.14);
+               transition:0.2s;
+           ">
+
+            <i class="fa-solid fa-triangle-exclamation"></i>
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

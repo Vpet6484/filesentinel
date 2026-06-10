@@ -1,0 +1,46 @@
+{% extends "layouts/base_admin.html" %}
+{% block content %}
+
+<h2 class="page-title" style="color:var(--critical);text-align:center;">
+    ⚠ Virus Detected
+</h2>
+
+<p style="text-align:center;color:var(--text-muted);max-width:600px;margin:0 auto 20px;">
+    The uploaded file from an employee appears to contain a potential threat.
+    Please review carefully before proceeding.
+</p>
+
+<div class="card" style="max-width:520px;margin:0 auto;padding:24px;">
+
+    <p>
+        <strong>File:</strong> {{ filename }}
+    </p>
+
+    <p style="color:var(--critical);margin-top:8px;">
+        <strong>Detected threat:</strong> {{ virus }}
+    </p>
+
+    <hr style="margin:18px 0;">
+
+    <form method="POST" action="/admin/virus-decision-employee"
+          style="display:flex;justify-content:space-between;gap:12px;">
+
+        <button type="submit"
+                name="action"
+                value="reject"
+                style="background:var(--critical);width:100%;">
+            Reject Upload
+        </button>
+
+        <button type="submit"
+                name="action"
+                value="accept"
+                style="background:var(--warning);width:100%;">
+            Approve Anyway
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

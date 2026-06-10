@@ -1,0 +1,170 @@
+{% extends "layouts/base_employee.html" %}
+
+{% block title %}Employee Dashboard{% endblock %}
+
+{% block content %}
+
+<h2 class="page-title">Employee Dashboard</h2>
+
+<div class="card">
+    <p>
+        Welcome to the <strong>FileSentinel Employee Portal</strong>.
+    </p>
+
+    <p style="color:var(--text-muted);margin-top:8px;">
+        Access authorized files, upload documents for approval,
+        and track request activity securely.
+    </p>
+</div>
+
+<div style="
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:20px;
+">
+
+    <!-- MY FILES -->
+    <div class="card" style="position:relative;min-height:160px;">
+
+        <h3 style="color:var(--accent);margin-bottom:6px;">
+            My Files
+        </h3>
+
+        <p style="color:var(--text-muted);font-size:13px;">
+            View, read and download files you are authorized to access.
+        </p>
+
+        <a href="/employee/files"
+           style="
+               position:absolute;
+               right:18px;
+               bottom:18px;
+               width:42px;
+               height:42px;
+               border-radius:12px;
+               background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+               display:flex;
+               align-items:center;
+               justify-content:center;
+               color:white;
+               text-decoration:none;
+               font-size:18px;
+               box-shadow:0 0 5px rgba(56,189,248,0.14);
+               transition:0.2s;
+           ">
+
+            <i class="fa-solid fa-folder-open"></i>
+
+        </a>
+
+    </div>
+
+    <!-- UPLOAD -->
+    <div class="card" style="position:relative;min-height:160px;">
+
+        <h3 style="color:var(--accent);margin-bottom:6px;">
+            Upload File
+        </h3>
+
+        <p style="color:var(--text-muted);font-size:13px;">
+            Submit files for admin approval before they become active.
+        </p>
+
+        <a href="/employee/upload"
+           style="
+               position:absolute;
+               right:18px;
+               bottom:18px;
+               width:42px;
+               height:42px;
+               border-radius:12px;
+               background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+               display:flex;
+               align-items:center;
+               justify-content:center;
+               color:white;
+               text-decoration:none;
+               font-size:18px;
+               box-shadow:0 0 5px rgba(56,189,248,0.14);
+               transition:0.2s;
+           ">
+
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+
+        </a>
+
+    </div>
+
+    <!-- REQUESTS -->
+    <div class="card" style="position:relative;min-height:160px;">
+
+        <h3 style="color:var(--accent);margin-bottom:6px;">
+            My Requests
+        </h3>
+
+        <p style="color:var(--text-muted);font-size:13px;">
+            Track approval or rejection status of upload requests.
+        </p>
+
+        <a href="/employee/requests"
+           style="
+               position:absolute;
+               right:18px;
+               bottom:18px;
+               width:42px;
+               height:42px;
+               border-radius:12px;
+               background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+               display:flex;
+               align-items:center;
+               justify-content:center;
+               color:white;
+               text-decoration:none;
+               font-size:18px;
+               box-shadow:0 0 5px rgba(56,189,248,0.14);
+               transition:0.2s;
+           ">
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+        </a>
+
+    </div>
+
+    <!-- SECURITY -->
+    <div class="card" style="position:relative;min-height:160px;">
+
+        <h3 style="color:var(--success);margin-bottom:6px;">
+            Security Monitoring
+        </h3>
+
+        <p style="color:var(--text-muted);font-size:13px;">
+            Unusual activity such as repeated downloads or failed logins
+            is automatically monitored and reviewed.
+        </p>
+
+        <div style="
+            position:absolute;
+            right:18px;
+            bottom:18px;
+            width:42px;
+            height:42px;
+            border-radius:12px;
+            background:linear-gradient(135deg,#22c55e,#16a34a);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:white;
+            font-size:18px;
+            box-shadow:0 0 5px rgba(34,197,94,0.14);
+        ">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

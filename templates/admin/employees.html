@@ -1,0 +1,161 @@
+{% extends "layouts/base_admin.html" %}
+{% block content %}
+
+<!-- ================= HEADER ================= -->
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+
+    <h2>
+        <i class="fa-solid fa-users"></i>
+        Employee Management
+    </h2>
+
+    <!-- Register Button -->
+    <a href="/admin/register"
+   class="btn btn-success"
+   style="text-decoration: none;">
+    <i class="fa-solid fa-user-plus"></i>
+    Register Employee
+</a>
+
+</div>
+
+
+<div class="card">
+
+<table class="styled-table">
+
+    <thead>
+        <tr>
+            <th>Photo</th>
+            <th>Username</th>
+            <th>Status</th>
+            <th>Terminated</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    {% for emp in employees %}
+
+    <tr>
+
+        <!-- ================= PHOTO ================= -->
+        <td style="text-align:center;">
+
+            {% if emp[4] %}
+
+                <img src="{{ url_for('static', filename='images/profiles/' ~ emp[4].split('/')[-1]) }}"
+                     style="
+                        width:42px;
+                        height:42px;
+                        border-radius:50%;
+                        object-fit:cover;
+                        border:1px solid #ddd;
+                     ">
+
+            {% else %}
+
+                <i class="fa-solid fa-user"
+                   style="font-size:20px;color:#999;"></i>
+
+            {% endif %}
+
+        </td>
+
+
+        <!-- ================= USERNAME ================= -->
+        <td>{{ emp[1] }}</td>
+
+
+        <!-- ================= STATUS ================= -->
+        <td>
+
+            {% if emp[3] == 'active' %}
+                <span class="badge success" >Active</span>
+
+            {% elif emp[3] == 'blocked' %}
+                <span class="badge danger">Blocked</span>
+
+            {% elif emp[3] == 'terminated' %}
+                <span class="badge warning">Terminated</span>
+            {% endif %}
+
+        </td>
+
+
+        <!-- ================= TERMINATED ================= -->
+        <td>
+
+            {% if emp[3] == 'terminated' and emp[5] %}
+                <span class="badge warning">Yes</span>
+            {% else %}
+                <span class="badge success">No</span>
+            {% endif %}
+
+        </td>
+
+
+        <!-- ================= ACTIONS ================= -->
+        <td style="
+            display:flex;
+            gap:8px;
+            justify-content:center;
+            flex-wrap:wrap;
+        ">
+
+            <!-- TERMINATED -->
+            {% if emp[3] == 'terminated' %}
+
+             
+
+                <a href="/admin/inspect/{{ emp[0] }}"
+                   class="btn btn-sm btn-info" style="text-decoration: none;">
+                   Inspect
+                </a>
+
+
+            <!-- ACTIVE / BLOCKED -->
+            {% else %}
+
+                {% if emp[3] == 'active' %}
+                    <a href="/admin/block/{{ emp[0] }}"
+                       class="btn btn-sm btn-danger"style="text-decoration: none;">
+                       Block
+                    </a>
+
+                {% elif emp[3] == 'blocked' %}
+                    <a href="/admin/unblock/{{ emp[0] }}"
+                       class="btn btn-sm btn-success" style="text-decoration: none;" >
+                       Unblock
+                    </a>
+                {% endif %}
+
+
+                <a href="/admin/terminate/{{ emp[0] }}"
+                   class="btn btn-sm btn-warning" style="text-decoration: none;"
+                   onclick="return confirm('Terminate this employee?')">
+                   Terminate
+                </a>
+
+                <a href="/admin/inspect/{{ emp[0] }}"
+                   class="btn btn-sm btn-info" style="text-decoration: none;">
+                   Inspect
+                </a>
+
+            {% endif %}
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

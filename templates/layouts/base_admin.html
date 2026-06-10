@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FileSentinel | Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+<body>
+
+<header>
+    <!-- Left: Branding -->
+    <div style="display:flex;align-items:center;gap:12px;">
+        <h1 style="margin:0;">FileSentinel</h1>
+        <span style="
+            font-size:11px;
+            padding:4px 8px;
+            border-radius:6px;
+            background:rgba(56,189,248,0.15);
+            color:var(--accent);
+            letter-spacing:1px;">
+            ADMIN
+        </span>
+    </div>
+
+    <!-- Right: Navigation -->
+    <nav style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+        <a href="/admin/home">Dashboard</a>
+        <a href="/admin/upload">Upload</a>
+        <a href="/admin/files">Files</a>
+        <a href="/admin/requests">Requests</a>
+        <a href="/admin/monitor">Monitor</a>
+        <a href="/admin/logs">Logs</a>
+        <a href="/admin/alerts">Alerts</a>
+        <a href="/admin/employees">Employees</a>
+        <a href="/admin/leak-analyzer">Leak Analyzer</a>
+        <a href="/admin/feedback">Feedback</a>
+
+
+        <a href="/logout"
+           class="btn btn-danger"
+           style="margin-left:8px;">
+            Logout
+        </a>
+    </nav>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer>
+   
+</footer>
+
+</body>
+</html>

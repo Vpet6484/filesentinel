@@ -1,0 +1,80 @@
+{% extends "layouts/base_admin.html" %}
+
+{% block title %}System Logs{% endblock %}
+
+{% block content %}
+
+<h2 class="page-title">System Logs</h2>
+
+<p style="color:var(--text-muted);max-width:800px;margin-bottom:24px;">
+    Complete audit trail of system and user activities.
+</p>
+
+<div class="card">
+
+{% if logs %}
+
+<table>
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Event</th>
+            <th>Result</th>
+            <th>Action</th>
+            <th>IP Address</th>
+            <th style="text-align:right;">Time</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    {% for l in logs %}
+    <tr>
+
+        <!-- USER -->
+        <td>{{ l[0] }}</td>
+
+        <!-- EVENT -->
+        <td>{{ l[1] }}</td>
+
+        <!-- RESULT -->
+        <td>
+            {% if l[2] == 'SUCCESS' %}
+                <span style="color:green;font-weight:600;">
+                    ✔ {{ l[2] }}
+                </span>
+            {% else %}
+                <span style="color:red;font-weight:600;">
+                    ✖ {{ l[2] }}
+                </span>
+            {% endif %}
+        </td>
+
+        <!-- ACTION -->
+        <td>{{ l[3] }}</td>
+
+        <!-- IP -->
+        <td>{{ l[4] }}</td>
+
+        <!-- TIME -->
+        <td style="text-align:right;font-size:13px;color:var(--text-muted);">
+            {{ l[5] }}
+        </td>
+
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+{% else %}
+
+<p style="color:var(--text-muted);">
+    No logs available.
+</p>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

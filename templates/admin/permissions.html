@@ -1,0 +1,187 @@
+{% extends "layouts/base_admin.html" %}
+
+{% block title %}Manage Permissions{% endblock %}
+
+{% block content %}
+
+<style>
+
+.permission-card{
+max-width:950px;
+margin:40px auto;
+background:#0f172a;
+border-radius:16px;
+padding:30px;
+box-shadow:0 10px 40px rgba(0,0,0,0.6);
+border:1px solid #1e293b;
+}
+
+.permission-title{
+font-size:22px;
+font-weight:600;
+margin-bottom:18px;
+color:#e2e8f0;
+}
+
+.file-info{
+background:#1e293b;
+padding:12px 16px;
+border-radius:8px;
+margin-bottom:25px;
+font-size:14px;
+color:#cbd5f5;
+border:1px solid #334155;
+}
+
+.permission-table{
+width:100%;
+border-collapse:collapse;
+border-radius:10px;
+overflow:hidden;
+}
+
+.permission-table th{
+background:#111827;
+color:#94a3b8;
+font-weight:600;
+padding:14px;
+text-align:center;
+border-bottom:1px solid #334155;
+}
+
+.permission-table td{
+padding:15px;
+text-align:center;
+border-bottom:1px solid #1e293b;
+color:#e2e8f0;
+}
+
+.permission-table td:first-child{
+text-align:left;
+font-weight:500;
+color:#f1f5f9;
+}
+
+.permission-table tr{
+transition:0.2s;
+}
+
+.permission-table tr:hover{
+background:#1e293b;
+}
+
+.permission-toggle{
+width:18px;
+height:18px;
+cursor:pointer;
+accent-color:#3b82f6;
+}
+
+.save-btn{
+margin-top:25px;
+padding:11px 20px;
+background:#3b82f6;
+color:white;
+border:none;
+border-radius:8px;
+font-size:14px;
+font-weight:600;
+cursor:pointer;
+transition:0.25s;
+}
+
+.save-btn:hover{
+background:#2563eb;
+transform:translateY(-1px);
+box-shadow:0 6px 18px rgba(59,130,246,0.4);
+}
+
+.note{
+margin-top:15px;
+font-size:13px;
+color:#94a3b8;
+}
+
+</style>
+
+
+<div class="permission-card">
+
+<div class="permission-title">
+Manage Permissions
+</div>
+
+<div class="file-info">
+<strong>File:</strong> {{ file.filename }}
+</div>
+
+<form method="post">
+
+<table class="permission-table">
+
+<thead>
+<tr>
+<th>Employee</th>
+<th>Read</th>
+<th>Download</th>
+<th>Delete</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for user in users %}
+<tr>
+
+<td>{{ user.username }}</td>
+
+<td>
+<input type="checkbox"
+class="permission-toggle"
+name="read_{{ user.id }}"
+{% if permissions.get(user.id, {}).get('can_read') %}
+checked
+{% endif %}
+>
+</td>
+
+<td>
+<input type="checkbox"
+class="permission-toggle"
+name="download_{{ user.id }}"
+{% if permissions.get(user.id, {}).get('can_download') %}
+checked
+{% endif %}
+>
+</td>
+
+<td>
+<input type="checkbox"
+class="permission-toggle"
+name="delete_{{ user.id }}"
+{% if permissions.get(user.id, {}).get('can_delete') %}
+checked
+{% endif %}
+>
+</td>
+
+</tr>
+{% endfor %}
+
+</tbody>
+
+</table>
+
+<button type="submit" class="save-btn">
+Save Permissions
+</button>
+
+</form>
+
+<p class="note">
+Admin always has full access and is not listed here.
+</p>
+
+</div>
+
+{% endblock %}

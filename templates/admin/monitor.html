@@ -1,0 +1,203 @@
+{% extends "layouts/base_admin.html" %}
+
+{% block title %}Live Monitor{% endblock %}
+
+{% block content %}
+
+<h2 class="page-title" style="color:var(--critical);">
+    🔴 Live Security Monitor
+</h2>
+
+<p style="
+    color:var(--text-muted);
+    max-width:800px;
+    margin-bottom:24px;
+">
+    Real-time monitoring of system logs and security alerts.
+    All critical activities are streamed live using WebSockets.
+</p>
+
+<div style="
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(420px,1fr));
+    gap:24px;
+">
+
+    <!-- ALERTS PANEL -->
+    <div class="card">
+        <h3 style="margin-bottom:12px;color:var(--critical);">
+            🚨 Alerts (Live)
+        </h3>
+
+        <ul id="alerts" style="
+            list-style:none;
+            padding:0;
+            margin:0;
+            max-height:420px;
+            overflow-y:auto;
+        "></ul>
+    </div>
+
+    <!-- LOGS PANEL -->
+    <div class="card">
+        <h3 style="margin-bottom:12px;color:var(--accent);">
+            📜 Logs (Live)
+        </h3>
+
+        <ul id="logs" style="
+            list-style:none;
+            padding:0;
+            margin:0;
+            max-height:420px;
+            overflow-y:auto;
+        "></ul>
+    </div>
+
+</div>
+
+<!-- Socket.IO -->
+<!-- Socket.IO -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js"></script>
+
+<script>
+
+/* ============================
+   SOCKET CONNECTION (IMPORTANT)
+=============================== */
+
+const socket = io("/admin");   // ✅ MUST match backend namespace
+
+
+/* ============================
+   INITIAL LOAD
+=============================== */
+
+// Load Alerts
+fetch("/admin/api/alerts")
+.then(res => res.json())
+.then(data => {
+
+    data.alerts
+        .reverse()
+        .slice(0, 30)
+        .forEach(a => renderAlert(a));
+
+});
+
+
+// Load Logs
+fetch("/admin/api/logs")
+.then(res => res.json())
+.then(data => {
+
+    data.logs
+        .reverse()
+        .slice(0, 30)
+        .forEach(l => renderLog(l));
+
+});
+
+
+/* ============================
+   REALTIME EVENTS
+=============================== */
+
+socket.on("connect", () => {
+    console.log("✅ Connected to admin socket");
+});
+
+socket.on("alert_event", data => {
+    renderAlert(data);
+    trim("alerts");
+});
+
+socket.on("log_event", data => {
+    renderLog(data);
+    trim("logs");
+});
+
+
+/* ============================
+   UI RENDER HELPERS
+=============================== */
+
+// Render Alert
+function renderAlert(data) {
+
+    const time = data.time || data.timestamp || "";
+    const user = data.user || data.username || "Unknown";
+    const severity = data.severity || "INFO";
+    const message = data.message || "";
+
+    const li = document.createElement("li");
+
+    li.className = "alert-item " + severity;
+
+    li.innerHTML = `
+        <span class="event-time">${time}</span>
+
+        <div class="severity-badge">${severity}</div>
+
+        <div class="event-message">
+            <b>${user}</b><br>
+            ${message}
+        </div>
+    `;
+
+    document.getElementById("alerts").prepend(li);
+}
+
+
+// Render Log
+function renderLog(data) {
+
+    const time = data.time || data.timestamp || "";
+    const user = data.user || data.username || "Unknown";
+    const event = data.event || data.event_type || "";
+    const result = data.result || "";
+    const ip = data.ip || "N/A";
+    const action = data.action || data.message || "";
+
+    const li = document.createElement("li");
+
+    li.className = "log-item";
+
+    li.innerHTML = `
+        <span class="event-time">${time}</span>
+
+        <div class="event-message">
+
+            <b>${user}</b>
+
+            | ${event} ${result}
+
+            | IP: ${ip}
+
+            <br>
+
+            ${action}
+
+        </div>
+    `;
+
+    document.getElementById("logs").prepend(li);
+}
+
+
+/* ============================
+   KEEP ONLY LAST 30
+=============================== */
+
+function trim(id) {
+
+    const list = document.getElementById(id);
+
+    while (list.children.length > 30) {
+        list.removeChild(list.lastChild);
+    }
+
+}
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,146 @@
+{% extends "layouts/base_employee.html" %}
+
+{% block title %}My Files{% endblock %}
+
+{% block content %}
+
+<h2 style="margin-bottom:10px;">My Files</h2>
+
+<p style="color:var(--text-muted);margin-bottom:24px;">
+    Below are the files you are permitted to access.
+    Available actions depend on permissions assigned by the administrator.
+</p>
+
+<div class="card">
+
+{% if files %}
+<table>
+    <thead>
+        <tr>
+            <th>File</th>
+            <th style="text-align:center;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {% for file in files %}
+    <tr>
+
+        <!-- FILE NAME -->
+        <td>
+            <i class="fa-solid fa-file-lines"
+               style="color:var(--accent);margin-right:8px;"></i>
+            {{ file[1] }}
+        </td>
+
+        <!-- ACTIONS -->
+        <td style="text-align:center;white-space:nowrap;">
+
+            <!-- READ -->
+            {% if file[2] %}
+                <a href="/employee/read/{{ file[0] }}"
+                   title="Read"
+                   onclick="showPreviewLoader()"
+                   style="color:var(--success);">
+                    <i class="fa-solid fa-eye action-icon"></i>
+                </a>
+            {% else %}
+                <i class="fa-solid fa-eye-slash"
+                   title="Read not permitted"
+                   class="action-icon"
+                   style="color:#6b7280;opacity:0.4;"></i>
+            {% endif %}
+
+            <!-- DOWNLOAD -->
+            {% if file[3] %}
+                <a href="/employee/download/{{ file[0] }}"
+                   title="Download"
+                   style="color:var(--accent);">
+                    <i class="fa-solid fa-download action-icon"></i>
+                </a>
+            {% else %}
+                <i class="fa-solid fa-download action-icon"
+                   title="Download not permitted"
+                   style="color:#6b7280;opacity:0.4;"></i>
+            {% endif %}
+
+            <!-- DELETE -->
+            {% if file[4] %}
+                <a href="/employee/delete/{{ file[0] }}"
+                   title="Delete"
+                   onclick="return confirm('Delete this file?')"
+                   style="color:var(--critical);">
+                    <i class="fa-solid fa-trash action-icon"></i>
+                </a>
+            {% else %}
+                <i class="fa-solid fa-trash action-icon"
+                   title="Delete not permitted"
+                   style="color:#6b7280;opacity:0.4;"></i>
+            {% endif %}
+
+        </td>
+
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+{% else %}
+<p style="color:var(--text-muted);">
+    No files have been assigned to you yet.
+</p>
+{% endif %}
+
+</div>
+
+
+<!-- LOADING OVERLAY -->
+<div id="preview-loader" style="
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(255,255,255,0.85);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+">
+
+    <div style="text-align:center;">
+
+        <div style="
+            width:50px;
+            height:50px;
+            border:5px solid #ddd;
+            border-top:5px solid var(--accent);
+            border-radius:50%;
+            animation:spin 1s linear infinite;
+            margin:auto;
+        "></div>
+
+        <p style="margin-top:15px;color:var(--text-muted);">
+            Preparing preview…
+        </p>
+
+    </div>
+
+</div>
+
+
+<style>
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+</style>
+
+
+<script>
+function showPreviewLoader() {
+    document.getElementById("preview-loader").style.display = "flex";
+}
+</script>
+
+{% endblock %}

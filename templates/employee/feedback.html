@@ -1,0 +1,273 @@
+{% extends "layouts/base_employee.html" %}
+
+{% block content %}
+
+<style>
+
+.feedback-container{
+max-width:850px;
+margin:40px auto;
+background:#0f172a;
+padding:35px;
+border-radius:16px;
+border:1px solid #1e293b;
+box-shadow:0 12px 35px rgba(0,0,0,0.5);
+color:#e2e8f0;
+}
+
+.feedback-container h2{
+margin-bottom:25px;
+font-weight:600;
+}
+
+.feedback-container h3{
+margin-top:40px;
+margin-bottom:20px;
+font-weight:600;
+}
+
+/* INPUTS */
+
+.feedback-input,
+.feedback-textarea{
+width:100%;
+background:#1e293b;
+border:1px solid #334155;
+border-radius:10px;
+padding:12px 14px;
+color:#e2e8f0;
+font-size:14px;
+outline:none;
+transition:0.2s;
+}
+
+.feedback-input::placeholder,
+.feedback-textarea::placeholder{
+color:#94a3b8;
+}
+
+.feedback-input:focus,
+.feedback-textarea:focus{
+border-color:#3b82f6;
+box-shadow:0 0 0 1px #3b82f6;
+}
+
+.feedback-textarea{
+min-height:130px;
+resize:vertical;
+}
+
+/* LABEL */
+
+label{
+font-size:14px;
+font-weight:500;
+color:#cbd5f5;
+display:block;
+margin-bottom:6px;
+}
+
+/* CHARACTER COUNTER */
+
+.char-counter{
+font-size:12px;
+color:#94a3b8;
+text-align:right;
+margin-top:4px;
+}
+
+/* BUTTON */
+
+.btn-primary{
+margin-top:18px;
+background:#3b82f6;
+border:none;
+padding:11px 18px;
+border-radius:8px;
+font-weight:600;
+cursor:pointer;
+transition:0.25s;
+}
+
+.btn-primary:hover{
+background:#2563eb;
+transform:translateY(-1px);
+box-shadow:0 6px 16px rgba(59,130,246,0.4);
+}
+
+/* FEEDBACK CARD */
+
+.feedback-card{
+background:#111827;
+border:1px solid #1f2937;
+padding:18px;
+border-radius:12px;
+margin-bottom:18px;
+transition:0.2s;
+}
+
+.feedback-card:hover{
+border-color:#3b82f6;
+}
+
+/* STATUS BADGE */
+
+.feedback-status{
+display:inline-block;
+margin-top:10px;
+padding:4px 10px;
+border-radius:6px;
+font-size:12px;
+font-weight:600;
+}
+
+.status-open{
+background:#7c2d12;
+color:#fdba74;
+}
+
+.status-replied{
+background:#064e3b;
+color:#6ee7b7;
+}
+
+/* ADMIN REPLY */
+
+.feedback-reply{
+margin-top:15px;
+background:#020617;
+padding:14px;
+border-radius:8px;
+border-left:3px solid #3b82f6;
+}
+
+.feedback-reply b{
+color:#93c5fd;
+}
+
+.feedback-reply small{
+color:#94a3b8;
+}
+
+hr{
+margin:35px 0;
+border:0;
+border-top:1px solid #1e293b;
+}
+
+</style>
+
+
+<div class="feedback-container">
+
+<h2>Send Feedback</h2>
+
+<form method="POST">
+
+<!-- SUBJECT -->
+
+<label>Subject (Max 200 characters)</label>
+
+<input type="text"
+name="subject"
+class="feedback-input"
+maxlength="200"
+placeholder="Brief summary of your issue"
+required
+oninput="countSubject(this)">
+
+<div class="char-counter" id="subjectCount">0 / 200</div>
+
+
+<br>
+
+
+<!-- MESSAGE -->
+
+<label>Message (Max 950 characters)</label>
+
+<textarea name="message"
+class="feedback-textarea"
+maxlength="950"
+placeholder="Describe your issue in detail..."
+required
+oninput="countMessage(this)"></textarea>
+
+<div class="char-counter" id="messageCount">0 / 950</div>
+
+
+<button type="submit" class="btn btn-primary">
+Send Feedback
+</button>
+
+</form>
+
+
+<hr>
+
+
+<h3>My Feedback History</h3>
+
+
+{% for f in feedbacks %}
+
+<div class="feedback-card">
+
+<b>{{ f[0] }}</b><br>
+
+<small style="color:#94a3b8;">{{ f[4] }}</small>
+
+<p style="margin-top:10px;">{{ f[1] }}</p>
+
+
+<span class="feedback-status
+{% if f[3] == 'open' %}
+status-open
+{% else %}
+status-replied
+{% endif %}
+">
+{{ f[3] | capitalize }}
+</span>
+
+
+{% if f[3] == 'replied' %}
+
+<div class="feedback-reply">
+
+<b>Admin Reply</b>
+
+<p style="margin-top:6px;">{{ f[2] }}</p>
+
+<small>{{ f[5] }}</small>
+
+</div>
+
+{% endif %}
+
+</div>
+
+{% else %}
+
+<p style="color:#94a3b8;">No feedback yet.</p>
+
+{% endfor %}
+
+</div>
+
+
+<script>
+
+function countSubject(input){
+document.getElementById("subjectCount").innerText =
+input.value.length + " / 200";
+}
+
+function countMessage(textarea){
+document.getElementById("messageCount").innerText =
+textarea.value.length + " / 950";
+}
+
+</script>
+
+{% endblock %}

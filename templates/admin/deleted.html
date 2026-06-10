@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><title>Deleted Files</title></head>
+<body>
+
+<h2>Deleted Files</h2>
+
+<table border="1">
+<tr><th>File</th><th>Recover</th></tr>
+
+{% for f in files %}
+<tr>
+    <td>{{ f[1] }}</td>
+    <td>
+        <a href="/admin/recover/{{ f[0] }}"
+           onclick="return confirm('Recover this file?')">
+           Recover
+        </a>
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+<br>
+<a href="/admin/home">Back</a>
+
+</body>
+</html>

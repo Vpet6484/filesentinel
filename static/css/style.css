@@ -1,0 +1,529 @@
+/* ===============================
+   FileSentinel – NeoSec Dark UI
+   Global Styles
+   =============================== */
+
+:root {
+    --bg-main: #0b0f14;
+    --bg-card: #111827;
+    --bg-header: #0f172a;
+    --bg-table: #020617;
+
+    --text-main: #e5e7eb;
+    --text-muted: #9ca3af;
+
+    --accent: #38bdf8;
+    --accent-hover: #0ea5e9;
+
+    --success: #22c55e;
+    --warning: #facc15;
+    --critical: #ef4444;
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #020617, #020617);
+    color: var(--text-main);
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    min-height: 100vh;
+}
+
+/* ===============================
+   Headers (Admin & Employee)
+   =============================== */
+
+header {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header h1 {
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: var(--accent);
+}
+
+nav a {
+    color: var(--text-muted);
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.25s ease;
+}
+
+nav a:hover {
+    color: var(--accent);
+}
+
+/* ===============================
+   Main Layout
+   =============================== */
+
+main {
+    padding: 32px;
+}
+
+.page-title {
+    font-size: 24px;
+    margin-bottom: 24px;
+    color: var(--accent);
+}
+
+/* ===============================
+   Cards
+   =============================== */
+
+.card {
+    background: linear-gradient(
+        145deg,
+        rgba(17, 24, 39, 0.95),
+        rgba(2, 6, 23, 0.95)
+    );
+    border: 1px solid rgba(56, 189, 248, 0.12);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.05);
+}
+
+/* ===============================
+   Buttons
+   =============================== */
+
+button,
+.btn {
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+    border: none;
+    color: #020617;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-weight: 600;
+}
+
+button:hover,
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    color: #fff;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #facc15, #ca8a04);
+    color: #020617;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #020617;
+}
+
+/* ===============================
+   Forms
+   =============================== */
+
+input,
+select {
+    width: 100%;
+    background: #020617;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: var(--text-main);
+    margin-bottom: 14px;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+}
+
+/* ===============================
+   Tables
+   =============================== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-table);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+th {
+    background: #020617;
+    color: var(--accent);
+    text-align: left;
+    padding: 14px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+td {
+    padding: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 13px;
+}
+
+tr:hover {
+    background: rgba(56, 189, 248, 0.05);
+}
+
+/* ===============================
+   Alerts / Severity Labels
+   =============================== */
+
+.alert {
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    font-size: 13px;
+}
+
+.alert-info {
+    background: rgba(56, 189, 248, 0.15);
+    border-left: 4px solid var(--accent);
+}
+
+.alert-warning {
+    background: rgba(250, 204, 21, 0.15);
+    border-left: 4px solid var(--warning);
+}
+
+.alert-critical {
+    background: rgba(239, 68, 68, 0.15);
+    border-left: 4px solid var(--critical);
+}
+
+/* ===============================
+   Footer
+   =============================== */
+
+footer {
+    text-align: center;
+    padding: 18px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+/* Admin table action icons */
+.action-icon {
+    font-size: 22px;              /* 🔥 Bigger icons */
+    margin: 0 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.action-icon:hover {
+    transform: scale(1.25);       /* Modern hover zoom */
+    opacity: 0.85;
+}
+
+/* Status icons slightly smaller but visible */
+.status-icon {
+    font-size: 16px;
+    margin-right: 6px;
+}
+
+/* ===============================
+   Live Monitor – Modern SOC Style
+   =============================== */
+
+.alert-item,
+.log-item {
+    position: relative;
+    background: #020617;
+    padding: 14px 16px 14px 14px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    box-shadow: inset 0 0 0 1px rgba(148,163,184,0.08);
+    animation: fadeIn 0.2s ease;
+}
+
+/* Time (top-right) */
+.event-time {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    font-size: 11px;
+    color: #9ca3af;
+    white-space: nowrap;
+}
+
+/* Severity badge */
+.severity-badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+/* Alert severities (border + badge only) */
+.alert-item.INFO {
+    border-left: 4px solid var(--accent);
+}
+.alert-item.INFO .severity-badge {
+    background: rgba(56,189,248,0.15);
+    color: var(--accent);
+}
+
+.alert-item.WARNING {
+    border-left: 4px solid var(--warning);
+}
+.alert-item.WARNING .severity-badge {
+    background: rgba(250,204,21,0.15);
+    color: var(--warning);
+}
+
+.alert-item.CRITICAL {
+    border-left: 4px solid var(--critical);
+}
+.alert-item.CRITICAL .severity-badge {
+    background: rgba(239,68,68,0.15);
+    color: var(--critical);
+}
+
+/* Logs */
+.log-item {
+    border-left: 4px solid #64748b;
+}
+
+/* Smooth animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===============================
+   EMPLOYEE LAYOUT
+   =============================== */
+
+.employee-body {
+    background: radial-gradient(circle at top, #020617, #000);
+    color: #e5e7eb;
+}
+
+/* Header */
+.employee-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 28px;
+    background: linear-gradient(90deg, #020617, #020617dd);
+    border-bottom: 1px solid rgba(148,163,184,0.15);
+}
+
+/* Brand */
+.employee-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #38bdf8;
+}
+
+.brand-badge {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(56,189,248,0.15);
+    color: #38bdf8;
+    font-weight: 600;
+}
+
+/* Nav */
+.employee-nav a {
+    margin-left: 18px;
+    color: #cbd5f5;
+    text-decoration: none;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s ease;
+}
+
+.employee-nav a:hover {
+    color: #38bdf8;
+}
+
+/* Logout */
+.logout-btn {
+    color: #f87171 !important;
+}
+
+/* Main */
+.employee-main {
+    padding: 32px;
+    min-height: calc(100vh - 120px);
+}
+
+/* Footer */
+.employee-footer {
+    text-align: center;
+    padding: 14px;
+    font-size: 12px;
+    color: #9ca3af;
+    border-top: 1px solid rgba(148,163,184,0.15);
+}
+/* EMPLOYEE TABLE */
+
+.styled-table {
+    width:100%;
+    border-collapse:collapse;
+}
+
+.styled-table th,
+.styled-table td {
+    padding:12px;
+    text-align:center;
+}
+
+.styled-table thead {
+    background:rgba(255,255,255,0.08);
+}
+
+.styled-table tr:hover {
+    background:rgba(255,255,255,0.05);
+}
+
+/* BADGES */
+
+.badge {
+    padding:4px 10px;
+    border-radius:12px;
+    font-size:12px;
+}
+
+.badge.success {
+    background:#16a34a;
+}
+
+.badge.danger {
+    background:#dc2626;
+}
+
+.badge.warning {
+    background:#f59e0b;
+}
+.spinner {
+    width: 36px;
+    height: 36px;
+    border: 4px solid rgba(56,189,248,0.2);
+    border-top: 4px solid rgb(56,189,248);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+/* ============================= */
+/* FEEDBACK PAGE STYLING */
+/* ============================= */
+
+.feedback-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.feedback-input,
+.feedback-textarea {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.85); /* dark slate */
+    color: #e5e7eb;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.feedback-textarea {
+    height: 160px;
+    resize: vertical;
+}
+
+.feedback-input::placeholder,
+.feedback-textarea::placeholder {
+    color: #94a3b8;
+}
+
+.feedback-input:focus,
+.feedback-textarea:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6);
+    background: rgba(15, 23, 42, 0.95);
+}
+
+.char-counter {
+    font-size: 12px;
+    color: #94a3b8;
+    text-align: right;
+    margin-top: 3px;
+}
+
+.feedback-card {
+    background: rgba(2, 6, 23, 0.75);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 16px;
+}
+
+.feedback-status {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.status-open {
+    background: rgba(234, 179, 8, 0.15);
+    color: #facc15;
+}
+
+.status-replied {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+}
+
+.feedback-reply {
+    margin-top: 10px;
+    padding: 10px;
+    border-left: 3px solid #38bdf8;
+    background: rgba(30, 41, 59, 0.6);
+    border-radius: 6px;
+}

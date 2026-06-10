@@ -1,0 +1,78 @@
+{% extends "layouts/base_admin.html" %}
+
+{% block content %}
+
+<h2>Employee Feedback</h2>
+
+{% for f in feedbacks %}
+
+<div class="feedback-card">
+
+    <b>{{ f[2] }}</b>
+    <span style="float:right;">
+        <small>From: {{ f[1] }}</small>
+    </span>
+
+    <br>
+    <small>{{ f[6] }}</small>
+
+    <p>{{ f[3] }}</p>
+
+
+    <!-- STATUS -->
+    <span class="feedback-status
+        {% if f[5] == 'open' %}
+            status-open
+        {% else %}
+            status-replied
+        {% endif %}
+    ">
+        {{ f[5] | capitalize }}
+    </span>
+
+
+    <!-- REPLIED -->
+    {% if f[5] == 'replied' %}
+
+        <div class="feedback-reply">
+
+            <b>Your Reply</b>
+
+            <p>{{ f[4] }}</p>
+
+            <small>{{ f[7] }}</small>
+
+        </div>
+
+    {% else %}
+
+        <!-- REPLY FORM -->
+        <form method="POST" style="margin-top:10px;">
+
+            <input type="hidden" name="feedback_id" value="{{ f[0] }}">
+
+            <textarea name="reply"
+                      class="feedback-textarea"
+                      maxlength="950"
+                      placeholder="Write your reply..."
+                      required></textarea>
+
+            <div class="char-counter">Max 950 characters</div>
+
+            <button type="submit" class="btn btn-success">
+                Send Reply
+            </button>
+
+        </form>
+
+    {% endif %}
+
+</div>
+
+{% else %}
+
+<p>No feedback available.</p>
+
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,204 @@
+{% extends "layouts/base_admin.html" %}
+
+{% block title %}Leak Analyzer{% endblock %}
+
+{% block content %}
+
+<style>
+
+.analyzer-container{
+max-width:950px;
+margin:40px auto;
+background:#0f172a;
+padding:35px;
+border-radius:16px;
+border:1px solid #1e293b;
+box-shadow:0 10px 35px rgba(0,0,0,0.5);
+color:#e2e8f0;
+}
+
+.analyzer-title{
+font-size:24px;
+font-weight:600;
+margin-bottom:8px;
+}
+
+.analyzer-desc{
+color:#94a3b8;
+margin-bottom:25px;
+font-size:14px;
+}
+
+/* Upload area */
+
+.upload-box{
+border:2px dashed #334155;
+border-radius:12px;
+padding:25px;
+text-align:center;
+background:#020617;
+transition:0.25s;
+}
+
+.upload-box:hover{
+border-color:#3b82f6;
+}
+
+.upload-box input{
+color:#cbd5f5;
+}
+
+/* Button */
+
+.analyze-btn{
+margin-top:20px;
+background:#38bdf8;
+border:none;
+padding:11px 20px;
+border-radius:8px;
+font-weight:600;
+cursor:pointer;
+transition:0.25s;
+}
+
+.analyze-btn:hover{
+background:#0ea5e9;
+transform:translateY(-1px);
+box-shadow:0 6px 16px rgba(56,189,248,0.4);
+}
+
+/* Error */
+
+.error-box{
+margin-top:15px;
+color:#f87171;
+}
+
+/* Report */
+
+.report-card{
+margin-top:30px;
+background:#020617;
+border:1px solid #1e293b;
+border-radius:12px;
+padding:25px;
+}
+
+.report-title{
+font-size:20px;
+font-weight:600;
+margin-bottom:18px;
+}
+
+/* Table */
+
+.report-table{
+width:100%;
+border-collapse:collapse;
+}
+
+.report-table th{
+text-align:left;
+padding:12px;
+width:180px;
+color:#38bdf8;
+border-bottom:1px solid #1e293b;
+}
+
+.report-table td{
+padding:12px;
+border-bottom:1px solid #1e293b;
+color:#e2e8f0;
+word-break:break-all;
+}
+
+.report-table tr:hover{
+background:#0f172a;
+}
+
+</style>
+
+
+<div class="analyzer-container">
+
+<div class="analyzer-title">
+Leak Analyzer
+</div>
+
+<div class="analyzer-desc">
+Upload a leaked file to identify the original user and session responsible for the leak.
+</div>
+
+<form method="POST" enctype="multipart/form-data">
+
+<div class="upload-box">
+
+<input type="file" name="file" required>
+
+</div>
+
+<button class="analyze-btn">
+Analyze File
+</button>
+
+</form>
+
+
+{% if error %}
+
+<div class="error-box">
+{{ error }}
+</div>
+
+{% endif %}
+
+
+{% if result %}
+
+<div class="report-card">
+
+<div class="report-title">
+Leak Report
+</div>
+
+<table class="report-table">
+
+<tr>
+<th>User</th>
+<td>{{ username }}</td>
+</tr>
+
+<tr>
+<th>User ID</th>
+<td>{{ result.user_id }}</td>
+</tr>
+
+<tr>
+<th>File ID</th>
+<td>{{ result.file_id }}</td>
+</tr>
+
+<tr>
+<th>Session</th>
+<td>{{ result.session_id }}</td>
+</tr>
+
+<tr>
+<th>Time</th>
+<td>{{ result.timestamp }}</td>
+</tr>
+
+<tr>
+<th>Nonce</th>
+<td>{{ result.nonce }}</td>
+</tr>
+
+</table>
+
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

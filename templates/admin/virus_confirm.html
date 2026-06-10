@@ -1,0 +1,141 @@
+{% extends "layouts/base_admin.html" %}
+{% block content %}
+
+<h2 class="page-title" style="text-align:center;color:#ef4444;">
+    ⚠ Security Warning
+</h2>
+
+<p style="
+    text-align:center;
+    color:var(--text-muted);
+    max-width:520px;
+    margin:0 auto 24px;
+">
+    A potential security threat was detected in the uploaded file.
+</p>
+
+
+<div style="
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+">
+
+    <div class="card" style="
+        max-width:520px;
+        width:100%;
+        padding:28px;
+        border:1px solid rgba(239,68,68,0.4);
+        background:rgba(2,6,23,0.8);
+    ">
+
+
+        <!-- FILE INFO -->
+        <div style="
+            border:2px dashed rgba(239,68,68,0.3);
+            border-radius:14px;
+            padding:22px;
+            text-align:center;
+            margin-bottom:20px;
+            background:rgba(15,23,42,0.7);
+        ">
+
+            <p style="
+                color:#ef4444;
+                font-size:15px;
+                font-weight:600;
+                margin-bottom:6px;
+            ">
+                Infected File Detected
+            </p>
+
+            <p style="
+                color:var(--text-muted);
+                font-size:13px;
+                margin-bottom:6px;
+            ">
+                File Name:
+            </p>
+
+            <p style="
+                color:white;
+                font-size:14px;
+                font-weight:600;
+                margin-bottom:10px;
+            ">
+                {{ filename }}
+            </p>
+
+            <p style="
+                color:#facc15;
+                font-size:13px;
+            ">
+                Threat: {{ virus }}
+            </p>
+
+        </div>
+
+
+        <!-- WARNING TEXT -->
+        <p style="
+            color:#f87171;
+            text-align:center;
+            font-size:13px;
+            margin-bottom:20px;
+        ">
+            This file may contain malware or harmful code.<br>
+            Uploading it can compromise system security.
+        </p>
+
+
+        <!-- ACTION BUTTONS -->
+        <form method="POST" action="/admin/virus-decision">
+
+            <div style="
+                display:flex;
+                justify-content:center;
+                gap:16px;
+                margin-top:10px;
+            ">
+
+                <!-- ACCEPT -->
+                <button
+                    type="submit"
+                    name="action"
+                    value="accept"
+                    style="
+                        background:#dc2626;
+                        color:white;
+                        min-width:160px;
+                        border:none;
+                    "
+                >
+                    Upload Anyway
+                </button>
+
+
+                <!-- REJECT -->
+                <button
+                    type="submit"
+                    name="action"
+                    value="reject"
+                    style="
+                        background:#334155;
+                        color:white;
+                        min-width:160px;
+                        border:none;
+                    "
+                >
+                    Cancel Upload
+                </button>
+
+            </div>
+
+        </form>
+
+
+    </div>
+
+</div>
+
+{% endblock %}

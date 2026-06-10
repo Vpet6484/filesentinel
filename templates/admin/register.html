@@ -1,0 +1,157 @@
+{% extends "layouts/base_admin.html" %}
+{% block content %}
+
+<div class="card"
+     style="
+        max-width:480px;
+        margin:50px auto;
+        padding:30px;
+        text-align:center;
+     ">
+
+<h2 style="margin-bottom:25px;">
+    <i class="fa-solid fa-user-plus"></i>
+    Register Employee
+</h2>
+
+
+{% if error %}
+<div class="alert alert-danger">
+    {{ error }}
+</div>
+{% endif %}
+
+
+<form method="POST"
+      enctype="multipart/form-data">
+
+
+    <!-- ================= PHOTO PREVIEW ================= -->
+
+    <div class="form-group" style="margin-bottom:25px;">
+
+        <div style="display:flex;justify-content:center;margin-bottom:12px;">
+
+            <img id="photoPreview"
+                 src="/static/img/default-avatar.png"
+                 style="
+                    width:110px;
+                    height:110px;
+                    border-radius:50%;
+                    border:2px solid #1f2937;
+                    object-fit:cover;
+                    background:#0f172a;
+                 ">
+        </div>
+
+
+        <label style="font-weight:600;">
+            Profile Photo (JPG / JPEG)
+        </label>
+
+        <input type="file"
+               name="photo"
+               accept=".jpg,.jpeg"
+               class="form-control"
+               onchange="previewPhoto(this)"
+               style="margin-top:6px;">
+
+        
+
+    </div>
+
+
+    <!-- ================= USERNAME ================= -->
+
+    <div class="form-group">
+
+    
+
+        <input type="text"
+               name="username"
+               required
+               class="form-control"
+               placeholder="Enter username">
+
+    </div>
+
+
+    <!-- ================= PASSWORD ================= -->
+
+    <div class="form-group">
+
+   
+
+        <input type="password"
+               name="password"
+               required
+               class="form-control"
+               placeholder="Enter password">
+
+    </div>
+
+
+    <!-- ================= BUTTONS ================= -->
+
+    <div style="margin-top:25px;display:flex;gap:12px;justify-content:center;">
+
+        <button type="submit"
+                class="btn btn-success">
+
+            <i class="fa-solid fa-check"></i>
+            Create Account
+
+        </button>
+
+        <a href="/admin/employees"
+           class="btn btn-secondary">
+
+            Cancel
+
+        </a>
+
+    </div>
+
+</form>
+
+</div>
+
+
+<!-- ================= PREVIEW SCRIPT ================= -->
+
+<script>
+
+function previewPhoto(input){
+
+    const preview = document.getElementById("photoPreview");
+    const file = input.files[0];
+
+    if(!file){
+        return;
+    }
+
+    // Validate extension (extra safety)
+    const allowed = ["image/jpeg", "image/jpg"];
+
+    if(!allowed.includes(file.type)){
+        alert("Only JPG / JPEG files allowed");
+
+        input.value = "";
+        preview.src = "/static/img/default-avatar.png";
+
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+        preview.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+
+}
+
+</script>
+
+{% endblock %}

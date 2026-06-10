@@ -1,0 +1,125 @@
+{% extends "layouts/base_admin.html" %}
+{% block content %}
+
+<h2 class="page-title" style="text-align:center;">
+    Upload New File
+</h2>
+
+<p style="
+    text-align:center;
+    color:var(--text-muted);
+    max-width:520px;
+    margin:0 auto 24px;">
+    Securely upload sensitive files into the FileSentinel system.
+</p>
+
+<div style="
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+">
+
+    <div class="card" style="
+        max-width:520px;
+        width:100%;
+        padding:28px;
+    ">
+
+        <!-- FORM -->
+        <form method="POST" enctype="multipart/form-data" onsubmit="startScan()">
+
+            <!-- File Input Block -->
+            <div style="
+                border:2px dashed rgba(56,189,248,0.25);
+                border-radius:14px;
+                padding:28px;
+                text-align:center;
+                margin-bottom:20px;
+                background:rgba(2,6,23,0.6);
+            ">
+
+                <p style="
+                    color:var(--accent);
+                    font-size:15px;
+                    margin-bottom:6px;
+                    font-weight:600;
+                ">
+                    Select File to Upload
+                </p>
+
+                <p style="
+                    color:var(--text-muted);
+                    font-size:12px;
+                    margin-bottom:14px;
+                ">
+                    Supported files: PDF, DOCX, XLSX
+                </p>
+
+                <input 
+                    type="file" 
+                    name="file" 
+                    required
+                    style="margin:0 auto;"
+                >
+            </div>
+
+            <!-- Submit Button -->
+            <div style="
+                display:flex;
+                justify-content:center;
+                margin-top:10px;
+            ">
+
+                <button 
+                    type="submit" 
+                    id="uploadBtn"
+                    style="min-width:180px;"
+                >
+                    Upload File
+                </button>
+
+            </div>
+
+            <!-- Loading Box -->
+            <div 
+                id="scanBox"
+                style="
+                    display:none;
+                    margin-top:20px;
+                    text-align:center;
+                    color:var(--accent);
+                "
+            >
+
+                <div class="spinner"></div>
+
+                <p style="margin-top:10px; font-size:14px;">
+                    Virus scan in progress… Please wait
+                </p>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- SCRIPT -->
+<script>
+
+function startScan() {
+
+    // Disable button
+    const btn = document.getElementById("uploadBtn");
+    btn.disabled = true;
+    btn.innerText = "Scanning...";
+
+    // Show loading
+    document.getElementById("scanBox").style.display = "block";
+}
+
+</script>
+
+{% endblock %}

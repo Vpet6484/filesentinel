@@ -1,0 +1,149 @@
+{% extends "layouts/base_admin.html" %}
+
+{% block title %}Inspect Employee{% endblock %}
+
+{% block content %}
+
+<!-- ================= EMPLOYEE HEADER ================= -->
+<div class="card" style="display:flex;gap:20px;align-items:center;margin-bottom:24px;">
+
+    <img src="/{{ user.photo if user.photo else 'static/images/default_user.png' }}"
+         style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);">
+
+    <div style="flex:1;">
+        <h2 style="margin:0;">{{ user.username }}</h2>
+        <p style="color:var(--text-muted);margin:4px 0;">
+            Role: {{ user.role | capitalize }}
+        </p>
+
+        <span class="badge
+            {% if summary.risk == 'HIGH' %}badge-danger
+            {% elif summary.risk == 'MEDIUM' %}badge-warning
+            {% else %}badge-success{% endif %}
+        ">
+            Risk: {{ summary.risk }}
+        </span>
+    </div>
+
+    <div style="text-align:right;">
+        <p>Status: <strong>{{ user.status }}</strong></p>
+        <p>Created: {{ user.created_at.strftime("%d %b %Y") }}</p>
+    </div>
+</div>
+
+<!-- ================= SUMMARY CARDS ================= -->
+<div style="
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:16px;
+    margin-bottom:30px;
+">
+
+    <div class="card"><h4>Sessions</h4><p>{{ summary.sessions }}</p></div>
+    <div class="card"><h4>Reads</h4><p>{{ summary.reads }}</p></div>
+    <div class="card"><h4>Downloads</h4><p>{{ summary.downloads }}</p></div>
+    <div class="card"><h4>Deletes</h4><p>{{ summary.deletes }}</p></div>
+    <div class="card"><h4>Alerts</h4><p>{{ summary.alerts }}</p></div>
+    <div class="card"><h4>Leaks</h4><p>{{ summary.leaks }}</p></div>
+
+</div>
+
+<!-- ================= SESSIONS ================= -->
+<h3 style="margin-bottom:12px;">Session Timeline</h3>
+
+{% for s in sessions %}
+<div class="card" style="margin-bottom:14px;">
+
+    <!-- SESSION HEADER -->
+    <div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;"
+         onclick="toggleSession('{{ s.id }}')">
+
+        <div>
+            <strong>Session #{{ s.id }}</strong><br>
+            <span style="color:var(--text-muted);font-size:13px;">
+                {{ s.login_time }} →
+                {{ s.logout_time if s.logout_time else 'Active' }}
+            </span>
+        </div>
+
+        <div>
+            <span class="badge
+                {% if s.risk == 'HIGH' %}badge-danger
+                {% elif s.risk == 'MEDIUM' %}badge-warning
+                {% else %}badge-success{% endif %}
+            ">
+                {{ s.risk }}
+            </span>
+        </div>
+    </div>
+
+    <!-- SESSION BODY -->
+    <div id="session-{{ s.id }}" style="display:none;margin-top:15px;">
+
+        <!-- SESSION META -->
+        <p style="font-size:13px;color:var(--text-muted);">
+            IP: {{ s.ip }} |
+            Login Result: {{ s.result }}
+        </p>
+
+        <!-- SESSION SUMMARY -->
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:10px;">
+            <span class="badge">Reads: {{ s.summary.reads }}</span>
+            <span class="badge">Downloads: {{ s.summary.downloads }}</span>
+            <span class="badge">Deletes: {{ s.summary.deletes }}</span>
+            <span class="badge badge-danger">Leaks: {{ s.summary.leaks }}</span>
+            <span class="badge badge-warning">Alerts: {{ s.summary.critical }}</span>
+        </div>
+
+        <!-- LOGS -->
+        <h4>Logs</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Result</th>
+                    <th>Action</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for l in s.logs %}
+                <tr>
+                    <td>{{ l.event }}</td>
+                    <td>{{ l.result }}</td>
+                    <td style="max-width:380px;">{{ l.action }}</td>
+                    <td>{{ l.time }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- ALERTS -->
+        {% if s.alerts %}
+        <h4 style="margin-top:12px;">Alerts</h4>
+        <ul>
+            {% for a in s.alerts %}
+            <li>
+                <strong>{{ a.severity }}</strong> —
+                {{ a.message }}
+                <span style="color:var(--text-muted);font-size:12px;">
+                    ({{ a.time }})
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+    </div>
+</div>
+{% endfor %}
+
+<!-- ================= SCRIPT ================= -->
+<script>
+function toggleSession(id) {
+    const el = document.getElementById("session-" + id);
+    el.style.display = el.style.display === "none" ? "block" : "none";
+}
+</script>
+
+{% endblock %}
